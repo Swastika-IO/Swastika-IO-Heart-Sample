@@ -21,7 +21,7 @@ namespace DemoSwastikaHeart.ViewModels
         [JsonProperty("id")]
         public string Id { get; set; }
 
-        [Required(ErrorMessage ="Nhập Tiêu đề")]
+        [Required(ErrorMessage = "Nhập Tiêu đề")]
         [JsonProperty("title")]
         public string Title { get; set; }
 
@@ -36,7 +36,7 @@ namespace DemoSwastikaHeart.ViewModels
 
         #endregion
 
-        #region For View
+        #region View
 
         //Add properties need for view or convert from model to view
 
@@ -81,7 +81,7 @@ namespace DemoSwastikaHeart.ViewModels
 
         public override PostViewModel ParseView(bool isExpand = true, DemoContext _context = null, IDbContextTransaction _transaction = null)
         {
-            
+
             var view = base.ParseView(isExpand, _context, _transaction);
             var getComments = CommentViewModel.Repository.GetModelListBy(
                     c => c.PostId == Id, // Conditions
@@ -99,9 +99,9 @@ namespace DemoSwastikaHeart.ViewModels
 
         public override async Task<RepositoryResponse<bool>> RemoveRelatedModelsAsync(PostViewModel view, DemoContext _context = null, IDbContextTransaction _transaction = null)
         {
-            var result = new RepositoryResponse<bool>();
+            var result = new RepositoryResponse<bool>() { IsSucceed = true };
             //Remove Related Comments
-            if (view.Comments.TotalItems>0)
+            if (view.Comments.TotalItems > 0)
             {
                 result = await CommentViewModel.Repository.RemoveListModelAsync(c => c.PostId == view.Id, _context, _transaction);
             }
