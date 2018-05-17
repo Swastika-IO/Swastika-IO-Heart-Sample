@@ -36,6 +36,45 @@
             @Html.DisplayFor(model => model.CreatedDateLocal)
         </dd>
     </dl>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Author
+                </th>
+                <th>
+                    Title
+                </th>
+                <th>
+                    Content
+                </th>
+                <th>
+                    CreatedDateLocal
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Comments.Items)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Author)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Content)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedDateLocal)
+                    </td>
+                </tr>
+            }
+          
+        </tbody>
+    </table>
+    @Html.Partial("_AddComment", new CommentViewModel() { PostId = Model.Id })
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |

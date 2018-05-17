@@ -46,7 +46,7 @@ namespace DemoSwastikaHeart.Controllers
         // POST: Posts/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        
+
         [Route("Create")]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -59,6 +59,7 @@ namespace DemoSwastikaHeart.Controllers
             }
             return View(post);
         }
+
 
         // GET: Posts/Edit/5
         [Route("Edit/{id}")]
@@ -131,13 +132,34 @@ namespace DemoSwastikaHeart.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            await PostViewModel.Repository.RemoveModelAsync(m => m.Id == id);
+            var getPost =await  PostViewModel.Repository.GetSingleModelAsync(m => m.Id == id);
+            if (getPost.IsSucceed)
+            {
+                await getPost.Data.RemoveModelAsync(true);
+            }
             return RedirectToAction(nameof(Index));
         }
 
         private bool PostExists(string id)
         {
             return PostViewModel.Repository.CheckIsExists(e => e.Id == id);
+        }
+
+        // POST: Posts/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        [Route("_AddComment")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> _AddComment(CommentViewModel comment)
+        {
+            if (ModelState.IsValid)
+            {
+                await comment.SaveModelAsync();
+                return RedirectToAction(nameof(Details), new { Id = comment.PostId });
+            }
+            return View(comment);
         }
     }
 }

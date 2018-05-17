@@ -82,19 +82,31 @@ namespace DemoSwastikaHeart.ViewModels
 
         public override PostViewModel ParseView(bool isExpand = true, DemoContext _context = null, IDbContextTransaction _transaction = null)
         {
+            
+            var view = base.ParseView(isExpand, _context, _transaction);
             var getComments = CommentViewModel.Repository.GetModelListBy(
                     c => c.PostId == Id, // Conditions
                     "CreatedDate", OrderByDirection.Descending, // Order By
                     pageSize: 5, pageIndex: 0, // Pagination
-                    _context: _context,_transaction: _transaction // Transaction
+                    _context: _context, _transaction: _transaction // Transaction
                     );
             if (getComments.IsSucceed)
             {
                 Comments = getComments.Data;
             }
+            return view;
 
-            return base.ParseView(isExpand, _context, _transaction);
+        }
 
+        public override async Task<RepositoryResponse<bool>> RemoveRelatedModelsAsync(PostViewModel view, DemoContext _context = null, IDbContextTransaction _transaction = null)
+        {
+            var result = new RepositoryResponse<bool>();
+            //Remove Related Comments
+            if (view.Comments.TotalItems>0)
+            {
+                result = await CommentViewModel.Repository.RemoveListModelAsync(c => c.PostId == view.Id, _context, _transaction);
+            }
+            return result;
         }
         #endregion
     }

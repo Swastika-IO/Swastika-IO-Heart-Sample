@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Swastika.Domain.Data.ViewModels;
 using System;
 using DemoSwastikaHeart.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace DemoSwastikaHeart.ViewModels
 {
@@ -12,6 +13,14 @@ namespace DemoSwastikaHeart.ViewModels
 
         [JsonProperty("id")]
         public string Id { get; set; }
+
+
+        [Required]
+        [JsonProperty("postId")]
+        public string PostId { get; set; }
+
+        [JsonProperty("author")]
+        public string Author { get; set; }
 
         [JsonProperty("title")]
         public string Title { get; set; }
@@ -40,15 +49,15 @@ namespace DemoSwastikaHeart.ViewModels
 
         #region Contrutors
 
-        protected CommentViewModel()
+        public CommentViewModel()
         {
         }
 
-        protected CommentViewModel(Comment model, DemoContext _context = null, IDbContextTransaction _transaction = null) : base(model, _context, _transaction)
+        public CommentViewModel(Comment model, DemoContext _context = null, IDbContextTransaction _transaction = null) : base(model, _context, _transaction)
         {
         }
 
-        protected CommentViewModel(Comment model, bool isLazyLoad, DemoContext _context = null, IDbContextTransaction _transaction = null) : base(model, isLazyLoad, _context, _transaction)
+        public CommentViewModel(Comment model, bool isLazyLoad, DemoContext _context = null, IDbContextTransaction _transaction = null) : base(model, isLazyLoad, _context, _transaction)
         {
         }
 
@@ -63,6 +72,10 @@ namespace DemoSwastikaHeart.ViewModels
             {
                 Id = Guid.NewGuid().ToString();
                 CreatedDateUTC = DateTime.UtcNow;
+            }
+            if (string.IsNullOrEmpty(Author))
+            {
+                Author = "Annonymous";
             }
 
             return base.ParseModel(_context, _transaction);
