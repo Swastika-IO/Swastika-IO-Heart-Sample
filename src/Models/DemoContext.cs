@@ -48,7 +48,8 @@ namespace DemoSwastikaHeart.Models
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=demo-heart.db;Trusted_Connection=True;MultipleActiveResultSets=true");
+            optionsBuilder.UseSqlite("Data Source=blogging.db");
+            //optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=demo-heart.db;Trusted_Connection=True;MultipleActiveResultSets=true");
         }
         public DbSet<DemoSwastikaHeart.Models.Post> Post { get; set; }
         public DbSet<DemoSwastikaHeart.Models.Comment> Comment { get; set; }
