@@ -161,5 +161,18 @@ namespace DemoSwastikaHeart.Controllers
             }
             return View(comment);
         }
+
+        // POST: Posts/Delete/5
+        [Route("DeleteComment/{id}")]
+        public async Task<IActionResult> DeleteComment(string id)
+        {
+            var getPost = await CommentViewModel.Repository.GetSingleModelAsync(m => m.Id == id);
+            if (getPost.IsSucceed)
+            {
+                await getPost.Data.RemoveModelAsync();
+                return RedirectToAction(nameof(Details), new { Id = getPost.Data.PostId });
+            }
+            return NotFound();
+        }
     }
 }
