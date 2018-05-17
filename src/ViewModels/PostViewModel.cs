@@ -21,7 +21,7 @@ namespace DemoSwastikaHeart.ViewModels
         [JsonProperty("id")]
         public string Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="Nhập Tiêu đề")]
         [JsonProperty("title")]
         public string Title { get; set; }
 
@@ -35,7 +35,6 @@ namespace DemoSwastikaHeart.ViewModels
         public DateTime CreatedDateUTC { get; set; }
 
         #endregion
-
 
         #region For View
 
