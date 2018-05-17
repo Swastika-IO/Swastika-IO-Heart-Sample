@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DemoSwastikaHeart.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
+using Microsoft.EntityFrameworkCore;
 namespace DemoSwastikaHeart
 {
     public class Startup
@@ -14,6 +15,9 @@ namespace DemoSwastikaHeart
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            
+            var context  = new DemoContext();            
+            context.Database.Migrate();
         }
 
         public IConfiguration Configuration { get; }
