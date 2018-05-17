@@ -11,7 +11,6 @@ using Microsoft.Data.OData.Query;
 
 namespace DemoSwastikaHeart.Controllers
 {
-    [Route("Posts")]
     public class PostsController : Controller
     {
         // GET: Posts
