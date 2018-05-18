@@ -1,0 +1,42 @@
+﻿@model PaginationModel<PostViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout_Blog.cshtml";
+    ViewData["PageTitle"] = "My Blog";
+    ViewData["PageExcerpt"] = "";
+    ViewData["PageImage"] = "/theme/img/home-bg.jpg";
+}
+<div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto">
+        @foreach (var item in Model.Items)
+        {
+            <div class="post-preview">
+                <a href="/details/@item.Id">
+                    <h2 class="post-title">
+                        @item.Title
+                    </h2>
+                    <h3 class="post-subtitle">
+                        @item.Excerpt
+                    </h3>
+                </a>
+                <p class="post-meta">
+                    @*Posted by
+                        <a href="#">Start Bootstrap</a>*@
+                    on @item.CreatedDateLocal.ToLongDateString()
+                </p>
+            </div>
+            <hr>
+        }
+        <!-- Pager -->
+        <div class="clearfix">
+            @for (int i = 0; i < Model.TotalPage; i++)
+            {
+                string href = $"/Post/10/{i}";
+                <td colspan="4">
+                    <a href="@href">@(i + 1)</a>
+                </td>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,67 @@
+﻿@model PaginationModel<PostViewModel>
+
+@{
+    ViewData["Title"] = "Posts";
+    Layout = "~/Views/Shared/_Layout_Blog.cshtml";
+    ViewData["PageTitle"] = "Posts";
+    ViewData["PageExcerpt"] = "";
+    ViewData["PageImage"] = "/theme/img/post-bg.jpg";
+}
+
+<div class="container">
+    <div class="row">
+            <a asp-action="Create">Create New</a>
+        </div>
+    @if (Model.TotalItems > 0)
+    {
+        
+        <div class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Title
+                    </th>
+                    <th>
+                        Excerpt
+                    </th>
+                    <th>
+                        CreatedDateLocal
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Excerpt)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedDateLocal)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+                <tr>
+                    @for (int i = 0; i < Model.TotalPage; i++)
+                    {
+                        string href = $"/Post/10/{i}";
+                        <td colspan="4">
+                            <a href="@href">@(i + 1)</a>
+                        </td>
+                    }
+                </tr>
+            </tbody>
+        </table>
+            </div>
+    }
+</div>
