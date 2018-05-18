@@ -5,5 +5,7 @@
 @using SimpleBlog.Models.ManageViewModels
 @using Swastika.Domain.Core.ViewModels
 @using SimpleBlog.ViewModels
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers

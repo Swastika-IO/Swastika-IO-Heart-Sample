@@ -20,6 +20,18 @@ namespace SimpleBlog.Controllers
             return View(posts.Data);
         }
 
+        // GET: Posts/Details/5
+        [Route("Details/{id}")]
+        public async Task<IActionResult> Details(string id)
+        {
+            var getPost = await PostViewModel.Repository.GetSingleModelAsync(m => m.Id == id);
+            if (!getPost.IsSucceed)
+            {
+                return NotFound();
+            }
+            return View(getPost.Data);
+        }
+
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
