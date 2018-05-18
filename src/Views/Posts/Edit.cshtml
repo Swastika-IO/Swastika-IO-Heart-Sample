@@ -7,13 +7,10 @@
 
 <h2>Edit</h2>
 
-<h4>Post</h4>
-<hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
@@ -26,11 +23,11 @@
             </div>
             <div class="form-group">
                 <label asp-for="Content" class="control-label"></label>
-                <textarea asp-for="Content" class="form-control"></textarea>
+                <textarea id="markdown-editor" asp-for="Content" class="form-control"></textarea>
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Edit" class="btn btn-default" />
             </div>
         </form>
     </div>
@@ -41,5 +38,14 @@
 </div>
 
 @section Scripts {
+
+    <script>
+        var simplemde = new SimpleMDE({ element: document.getElementById("markdown-editor") });
+        //$('#editSection').tuiEditor({
+        //    initialEditType: 'markdown',
+        //    previewStyle: 'vertical',
+        //    height: '300px'
+        //});
+    </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

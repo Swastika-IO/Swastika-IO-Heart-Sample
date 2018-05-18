@@ -26,19 +26,24 @@
 <article>
     <div class="container">
         <div class="row">
-            <textarea id="markdown-content" class="col-lg-8 col-md-10 mx-auto">
-                
-            </textarea>
+            <textarea id="markdown-editor" class="col-lg-8 col-md-10 mx-auto">@Model.Content</textarea>
+            <div id="markdown-content"></div>
+        </div>
+        <div class="row">
+                <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+                <a asp-action="Index">Back to List</a>
         </div>
     </div>
 </article>
-@*<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>*@
-@section scripts{ 
+
+@section scripts{
     <script>
-        var simplemde = new SimpleMDE({ element: document.getElementById("markdown-content") });
-        simplemde.value('@Model.Content');
-</script>
+        var simplemde = new SimpleMDE({ element: document.getElementById("markdown-editor") });
+        var render = simplemde.value();
+        var renderedHTML = simplemde.options.previewRender(render);
+        document.getElementById('markdown-content').innerHTML = renderedHTML;
+        simplemde.toTextArea();
+        simplemde = null;
+        document.getElementById("markdown-editor").remove();
+    </script>
 }
