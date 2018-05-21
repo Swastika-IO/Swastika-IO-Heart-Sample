@@ -1,4 +1,4 @@
-﻿@{ 
+﻿@{
     string pageImage = ViewData["PageImage"] != null ? ViewData["PageImage"].ToString() : "/theme/img/post-bg.jpg";
 }
 <!DOCTYPE html>
@@ -13,8 +13,8 @@
     <link href="/theme/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom fonts for this template -->
     <link href="/theme/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href="~/lib/fonts/lora.css" rel="stylesheet" />
+    <link href="~/lib/fonts/gstatic.css" rel="stylesheet" />
     <!-- Custom styles for this template -->
     <link href="/theme/css/clean-blog.min.css" rel="stylesheet">
 </head>
@@ -33,18 +33,18 @@
         </div>
     </nav>
     <header class="masthead" style="background-image: url('@pageImage')">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
-                <div class="site-heading">
-                    <h1>@ViewData["PageTitle"]</h1>
-                    <span class="subheading">@ViewData["PageExcerpt"]</span><br />
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="site-heading">
+                        <h1>@ViewData["PageTitle"]</h1>
+                        <span class="subheading">@ViewData["PageExcerpt"]</span><br />
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</header>
+    </header>
     <div class="container">
         @RenderBody()
     </div>
@@ -85,10 +85,8 @@
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.js"></script>
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css" />
-    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
-    <script src="https://cdn.rawgit.com/showdownjs/showdown/1.8.6/dist/showdown.min.js"></script>
+    <link href="~/lib/simple-mde/simplemde.css" rel="stylesheet" />
+    <script src="~/lib/simple-mde/simplemde.js"></script>
     @RenderSection("Scripts", required: false)
     <!-- Bootstrap core JavaScript -->
     <script src="/theme/vendor/jquery/jquery.min.js"></script>

@@ -21,10 +21,10 @@ namespace SimpleBlog.Controllers
         }
 
         // GET: Posts/Details/5
-        [Route("Details/{id}")]
-        public async Task<IActionResult> Details(string id)
+        [Route("Details/{seoName}")]
+        public async Task<IActionResult> Details(string seoName)
         {
-            var getPost = await PostViewModel.Repository.GetSingleModelAsync(m => m.Id == id);
+            var getPost = await PostViewModel.Repository.GetSingleModelAsync(m => m.SeoName == seoName);
             if (!getPost.IsSucceed)
             {
                 return NotFound();

@@ -1,9 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.OData.Query;
 using Microsoft.EntityFrameworkCore;
 using SimpleBlog.ViewModels;
+using Swastika.Domain.Core.ViewModels;
 
 namespace SimpleBlog.Controllers
 {
@@ -51,8 +53,16 @@ namespace SimpleBlog.Controllers
         {
             if (ModelState.IsValid)
             {
-                await post.SaveModelAsync();
-                return RedirectToAction(nameof(Index));
+                post.Author = User.Identity.Name;
+                var saveResult = await post.SaveModelAsync();
+                if (saveResult.IsSucceed)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    HandleError(saveResult);
+                }
             }
             return View(post);
         }
@@ -63,7 +73,7 @@ namespace SimpleBlog.Controllers
         public async Task<IActionResult> Edit(string id)
         {
             var getPost = await PostViewModel.Repository.GetSingleModelAsync(m => m.Id == id);
-            if (!getPost.IsSucceed)
+            if (!getPost.IsSucceed || getPost.Data.Author != User.Identity.Name)
             {
                 return NotFound();
             }
@@ -171,5 +181,18 @@ namespace SimpleBlog.Controllers
             }
             return NotFound();
         }
+
+        private void HandleError<T>(RepositoryResponse<T> result)
+        {
+            if (result.Exception != null)
+            {
+                ModelState.AddModelError("", result.Exception.Message);
+            }
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error);
+            }
+        }
+
     }
 }

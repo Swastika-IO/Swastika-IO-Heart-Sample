@@ -38,17 +38,40 @@ namespace SimpleBlog.Migrations
                     b.ToTable("blog_comment");
                 });
 
+            modelBuilder.Entity("SimpleBlog.Data.Blog.Configuration", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("CreatedDateUTC");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("Type");
+
+                    b.Property<string>("Value");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("blog_configuration");
+                });
+
             modelBuilder.Entity("SimpleBlog.Data.Blog.Post", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(50);
 
+                    b.Property<string>("Author");
+
                     b.Property<string>("Content");
 
                     b.Property<DateTime>("CreatedDateUTC");
 
                     b.Property<string>("Excerpt");
+
+                    b.Property<string>("SeoName");
 
                     b.Property<string>("Title");
 
