@@ -1,0 +1,71 @@
+﻿@model PaginationModel<ConfigurationViewModel>
+
+@{
+    ViewData["Title"] = "Posts";
+    Layout = "~/Views/Shared/_Layout_Blog.cshtml";
+    ViewData["PageTitle"] = "Posts";
+    ViewData["PageExcerpt"] = "";
+    ViewData["PageImage"] = "/theme/img/post-bg.jpg";
+}
+
+<div class="container">
+    <div class="row">
+        <a asp-action="Create">Create New</a>
+    </div>
+    @if (Model.TotalItems > 0)
+    {
+
+        <div class="row">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Type
+                        </th>
+                        <th>
+                            Value
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Type.ToString())
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Value)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                    <tr>
+                        @for (int i = 0; i < Model.TotalPage; i++)
+                        {
+                            <td colspan="5">
+                                <a asp-action="Index" asp-route-pageSize="10" asp-route-pageIndex="@i">@(i + 1)</a>
+                            </td>
+                        }
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
