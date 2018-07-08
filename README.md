@@ -1,6 +1,6 @@
 # Swastika-IO-Heart-Sample
 ## Package manager Console:
-*Create Database*
+*Blogging.db will be created automatically when you run app*
 ```
 dotnet restore
 dotnet build
