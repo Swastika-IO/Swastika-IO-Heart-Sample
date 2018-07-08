@@ -109,7 +109,7 @@ namespace SimpleBlog.ViewModels
             //Remove Related Comments
             if (view.Comments.TotalItems > 0)
             {
-                result = await CommentViewModel.Repository.RemoveListModelAsync(c => c.PostId == view.Id, _context, _transaction);
+                result.IsSucceed = (await CommentViewModel.Repository.RemoveListModelAsync(c => c.PostId == view.Id, _context, _transaction)).IsSucceed;
             }
             return result;
         }
@@ -121,7 +121,7 @@ namespace SimpleBlog.ViewModels
         {
             if (string.IsNullOrEmpty(this.SeoName))
             {
-                this.SeoName = SEOHelper.GetSEOString(this.Title);
+                this.SeoName = SeoHelper.GetSEOString(this.Title);
             }
             int i = 1;
             string name = SeoName;
