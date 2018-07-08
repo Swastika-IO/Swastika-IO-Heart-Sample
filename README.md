@@ -2,5 +2,7 @@
 ## Package manager Console:
 *Create Database*
 ```
-Update-Database -Context BlogContext
+dotnet restore
+dotnet build
+dotnet run
 ```
